@@ -528,22 +528,22 @@ class FIFOQueue(Queue):
 
     def append(self, item):
         self.A.append(item)
-        print("append: ", self.A)
+        #print("append: ", self.A)
 
     def __len__(self):
         return len(self.A) - self.start
 
     def extend(self, items):
         self.A.extend(items)
-        print("extend: ", self.A)
+        #print("extend: ", self.A)
 
     def pop(self):
-        #e = self.A[self.start]
-        #self.start += 1
-        #if self.start > 5 and self.start > len(self.A) / 2:
-        #    self.A = self.A[self.start:]
-        #    self.start = 0
-        return self.A.pop(0)
+        e = self.A[self.start]
+        self.start += 1
+        if self.start > 5 and self.start > len(self.A) / 2:
+            self.A = self.A[self.start:]
+            self.start = 0
+        return e
 
 class rya(Queue):
     """Ramificacion y acotacion"""
@@ -551,13 +551,11 @@ class rya(Queue):
         self.A = []
         self.start = 0
 
-    def myFunc(self, item):
+    def mySort(self, item):
         return item.path_cost
 
-    #Modificar el append para que cada vez que haga append, ordene por path_cost
     def append(self, item):
         self.A.append(item)
-        print("append: ", self.A)
 
     def __len__(self):
         return len(self.A) - self.start
@@ -565,8 +563,7 @@ class rya(Queue):
     def extend(self, items):
         self.A.extend(items)
         #Reordenar la lista
-        self.A.sort(key=self.myFunc)
-        print("extend: ", self.A)
+        self.A.sort(key=self.mySort)
 
     def pop(self):
         e = self.A[self.start]
