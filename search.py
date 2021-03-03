@@ -101,7 +101,6 @@ def graph_search(problem, fringe):
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
-        #print(node)
         if problem.goal_test(node.state):
             return node
         if node.state not in closed:
@@ -114,8 +113,8 @@ def breadth_first_graph_search(problem):
     """Search the shallowest nodes in the search tree first. [p 74]"""
     return graph_search(problem, FIFOQueue())  # FIFOQueue -> fringe
 
-def breadth_rya_graph_search(problem):
-    """Search the shallowest nodes in the search tree first. [p 74]"""
+def rya_graph_search(problem):
+    """Search the nearest nodes in the search tree first"""
     return graph_search(problem, rya())  # FIFOQueue -> fringe
 
 def depth_first_graph_search(problem):
