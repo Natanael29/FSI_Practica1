@@ -12,7 +12,7 @@ print("--------------------------Comparacion RyA y RyA subestimacion------------
 
 ab = search.GPSProblem('A', 'B'
                        , search.romania)
-print("Ramificación y acotación AB: ", search.rya_graph_search(ab).path()) # Búsqueda por ramificación y acotación
+print("Ramificación y acotación: ", search.rya_graph_search(ab).path()) # Búsqueda por ramificación y acotación
 print("Ramificación y acotación con estimación: ", search.rya_subest_graph_search(ab).path()) # Búsqueda por ramificación y acotación con estimación
 
 
@@ -25,17 +25,12 @@ print("Ramificación y acotación con estimación: ", search.rya_subest_graph_se
 
 print("--------------------------Comparacion RyA y RyA subestimacion---------------------")
 
-#A --> D: Da distintos valores
-#A --> Z: Da distintos valores
 ab = search.GPSProblem('A', 'Z'
                        , search.romania)
 print("Ramificación y acotación: ", search.rya_graph_search(ab).path()) # Búsqueda por ramificación y acotación
 print("Ramificación y acotación con estimación: ", search.rya_subest_graph_search(ab).path()) # Búsqueda por ramificación y acotación con estimación
 
-#El resultado (path) ha de ser igual pero el numero de nodos expandidos tendrá que ser menos en RyA sub
-
 # Result:
 # [<Node B>, <Node P>, <Node R>, <Node S>, <Node A>] : 101 + 97 + 80 + 140 = 418
 # [<Node B>, <Node F>, <Node S>, <Node A>] : 211 + 99 + 140 = 450
 # [<Node B>, <Node P>, <Node R>, <Node S>, <Node A>] : 140 + 80 + 97 + 101 = 418
-#Resultado de rya estimado
