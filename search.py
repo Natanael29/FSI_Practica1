@@ -98,14 +98,18 @@ def graph_search(problem, fringe):
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     closed = {}
+    expanded = 0
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
+            print("Se han expandido: ", expanded, " nodos")
             return node
         if node.state not in closed:
+            expanded += 1 # No sé si está bien
             closed[node.state] = True
             fringe.extend(node.expand(problem))
+
     return None
 
 
@@ -113,14 +117,17 @@ def breadth_first_graph_search(problem):
     """Search the shallowest nodes in the search tree first. [p 74]"""
     return graph_search(problem, FIFOQueue())  # FIFOQueue -> fringe
 
-def rya_graph_search(problem):
-    """Search the nearest nodes in the search tree first"""
-    return graph_search(problem, rya())  # FIFOQueue -> fringe
-
 def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, Stack())
 
+def rya_graph_search(problem):
+    """Search the nearest nodes in the search tree first"""
+    return graph_search(problem, rya())  # RyA
+
+def rya_subest_graph_search(problem):
+    """Search the nearest nodes in the search tree first"""
+    return graph_search(problem, rya_subest(problem))  # RyAsub
 
 
 # _____________________________________________________________________________

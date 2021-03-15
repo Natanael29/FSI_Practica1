@@ -1,6 +1,7 @@
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
+import math
 
 infinity = 1.0e400
 
@@ -551,8 +552,31 @@ class rya(Queue):
         self.A = []
         self.start = 0
 
-    def mySort(self, item):
-        return item.path_cost
+    def append(self, item):
+        self.A.append(item)
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+    def extend(self, items):
+        self.A.extend(items)
+        #Reordenar la lista
+        self.A.sort(key=lambda item: item.path_cost)
+
+    def pop(self):
+        e = self.A[self.start]
+        self.start += 1
+        if self.start > 5 and self.start > len(self.A) / 2:
+            self.A = self.A[self.start:]
+            self.start = 0
+        return e
+
+class rya_subest(Queue):
+    """Ramificacion y acotacion con subestimacion"""
+    def __init__(self, problem):
+        self.A = []
+        self.start = 0
+        self.problem = problem
 
     def append(self, item):
         self.A.append(item)
@@ -563,7 +587,7 @@ class rya(Queue):
     def extend(self, items):
         self.A.extend(items)
         #Reordenar la lista
-        self.A.sort(key=self.mySort)
+        self.A.sort(key=lambda item: item.path_cost + self.problem.h(item))
 
     def pop(self):
         e = self.A[self.start]
@@ -572,7 +596,6 @@ class rya(Queue):
             self.A = self.A[self.start:]
             self.start = 0
         return e
-
 
 
 ## Fig: The idea is we can define things like Fig[3,10] later.
